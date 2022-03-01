@@ -2,7 +2,7 @@
 ### TESTING
 
 1. in venv
-2. use ```$ flask run```
+2. use ``` flask run```
 3. before testing, initalize the database by running ``` python init_db.py``` from /database
 4. use ``` pytest ```
 
