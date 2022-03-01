@@ -1,13 +1,15 @@
 
 ### TESTING
 
-1. before testing, initalize the database by running ``` python init_db.py``` from /database
-2. use ``` pytest ```
+1. in venv
+2. use ```$ flask run```
+3. before testing, initalize the database by running ``` python init_db.py``` from /database
+4. use ``` pytest ```
 
 
 ### NOTES
 
-- when first reading the README, I didn't realize that key-value store referred to a specific type of database. So I didn't think too much of it and implemented a SQLite database. Jake informed me that it shouldn't be a huge issue and to just note down it's implications, trade offs, etc. (see section below)
+- When first reading the README, I didn't realize that key-value store referred to a specific type of database. So I didn't think too much of it and implemented a SQLite database. Jake informed me that it shouldn't be a huge issue and to just note down it's implications, trade offs, etc. (see section below)
 
 - The README says "Initially the service will support a single train station..." so I decided to add a table for stations. For this project, trains added to the database simply have a foreign key of '1' referring to the only station present in this table.
 
@@ -46,18 +48,18 @@
 ### MY ASSUMPTIONS
 
 `/trains`
-    - id must be a string (so 1234 must come in as "1234")
-    - requests made with ids that exist in the database, regardless of if the request has new times in its schedule, will not be accepted. for this I return a 400 error
-    - the schedule must not be empty, must be a list, and must contain numbers
-    - times in schedule must be between 0 and 2400
-    - requests that fail to abide by these constraints are rejected
+   - id must be a string (so 1234 must come in as "1234")
+   - requests made with ids that exist in the database, regardless of if the request has new times in its schedule, will not be accepted. for this I return a 400 error
+   - the schedule must not be empty, must be a list, and must contain numbers
+   - times in schedule must be between 0 and 2400
+   - requests that fail to abide by these constraints are rejected
 
 `/trains/<train_id>`
-    - trying to get a schedule for a nonexistent line returns a 400 error
+   - trying to get a schedule for a nonexistent line returns a 400 error
 
 `/trains/next`
-    - in the assumptions of README, it talked about a "specified time" to which `/trains/next` should return the time after such where two or more trains are in the station. as this is a GET request with no url arguments, I assumed this "specified time" comes from a header.
-    - if a request is made when there are no trains in the database, it simply returns no time but is considered a valid request. there can be no time two or more trains are in the station when there are no trainlines.
+   - in the assumptions of README, it talked about a "specified time" to which `/trains/next` should return the time after such where two or more trains are in the station. as this is a GET request with no url arguments, I assumed this "specified time" comes from a header.
+   - if a request is made when there are no trains in the database, it simply returns no time but is considered a valid request. there can be no time two or more trains are in the station when there are no trainlines.
 
 `etc`
-    - other assumptions made about validity regarding inputs and requests can be seen in code of service_requests.py
+   - other assumptions made about validity regarding inputs and requests can be seen in code of service_requests.py
